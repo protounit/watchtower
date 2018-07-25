@@ -1,0 +1,20 @@
+{
+    "name": "protounit/watchtower",
+    "description": "Monolog wrapper that sends your logs to Telegram channel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "protounit",
+            "email": "admin@protounit.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Protounit\\WatchTower\\": "src"
+        }
+    },
+    "require": {
+        "monolog/monolog": "^1.23",
+        "guzzlehttp/guzzle": "^6.3"
+    }
+}
