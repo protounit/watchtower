@@ -2,6 +2,7 @@
 namespace Protounit\WatchTower;
 
 use Monolog\Handler\AbstractProcessingHandler;
+use Monolog\Logger;
 use Protounit\WatchTower\Helpers\Guzzle;
 use Protounit\WatchTower\Helpers\Telegram;
 
@@ -35,10 +36,14 @@ class TelegramHandler extends AbstractProcessingHandler
     /**
      * TelegramHandler constructor.
      *
-     * @param array $options
+     * @param array   $options
+     * @param integer $level
+     * @param boolean $bubble
      */
-    public function __construct(array $options = [])
+    public function __construct(array $options = [], $level = Logger::DEBUG, bool $bubble = true)
     {
+        parent::__construct($level, $bubble);
+
         $this->config   = $options;
         $this->guzzle   = new Guzzle($options);
         $this->telegram = new Telegram($options);
