@@ -18,68 +18,74 @@ Telegram handler for Monolog. Send log info to channel with pretty formatting an
 *Too much messages per time could eat all of your RAM because there is no fork bomb detectors!*
 
 ## Install
-	composer require protounit/watchtower
-	composer install
-	
+```bash
+composer require protounit/watchtower
+composer install
+```
+
 ## Configuration
 This array represents full amount of options you need to make package work
 
-    $config = [
-        'botId'     => 'BOTID:BOTID',
-        'channelId' => 'CHANNELID',
-        'timeZone'  => 'Europe/Rome',
-    ];
-    
+```php
+$config = [
+	'botId'     => 'BOTID:BOTID',
+	'channelId' => 'CHANNELID',
+	'timeZone'  => 'Europe/Rome',
+];
+```
+
 ## Example
-    <?php
-    require __DIR__ . '/vendor/autoload.php';
-    
-    use Monolog\Logger;
-    use Protounit\WatchTower\TelegramHandler;
-    
-    /**
-     * Minimal required configuration
-     */
-    $config = [
-        'botId'     => 'BOTID:BOTID',
-        'channelId' => 'CHANNELID',
-        'timeZone'  => 'Europe/Rome',
-    ];
-    
-    /**
-     * Creating Logger interface with custom channel name
-     */
-    $logger = new Logger('WatchTower');
-    
-    /**
-     * Including custom handler for Monolog messages
-     */
-    $logger->pushHandler(new TelegramHandler($config));
-    
-    /**
-     * Example messages
-     */
-    $logger->error(
-        'An error occurred while creating another better example',
-        [
-            'file'      => __FILE__,
-            'line'      => __LINE__,
-            'debugInfo' => [
-                'message' => 'Yet another message',
-            ],
-        ]
-    );
-    
-    /**
-     * Something more interesting
-     */
-    $logger->critical(
-        'Cannot allocate memory: couldn\'t create child process',
-        [
-            'file'      => __FILE__,
-            'line'      => __LINE__,
-            'debugInfo' => [
-                'memory' => '640K',
-            ],
-        ]
-    );
+```php
+<?php
+require __DIR__ . '/vendor/autoload.php';
+
+use Monolog\Logger;
+use Protounit\WatchTower\TelegramHandler;
+
+/**
+* Minimal required configuration
+*/
+$config = [
+	'botId'     => 'BOTID:BOTID',
+	'channelId' => 'CHANNELID',
+	'timeZone'  => 'Europe/Rome',
+];
+
+/**
+* Creating Logger interface with custom channel name
+*/
+$logger = new Logger('WatchTower');
+
+/**
+* Including custom handler for Monolog messages
+*/
+$logger->pushHandler(new TelegramHandler($config));
+
+/**
+* Example messages
+*/
+$logger->error(
+	'An error occurred while creating another better example',
+	[
+	    'file'      => __FILE__,
+	    'line'      => __LINE__,
+	    'debugInfo' => [
+		'message' => 'Yet another message',
+	    ],
+	]
+);
+
+/**
+* Something more interesting
+*/
+$logger->critical(
+'Cannot allocate memory: couldn\'t create child process',
+	[
+	    'file'      => __FILE__,
+	    'line'      => __LINE__,
+	    'debugInfo' => [
+		'memory' => '640K',
+	    ],
+	]
+);
+```
