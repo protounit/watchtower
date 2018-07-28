@@ -11,6 +11,7 @@ $config = [
     'botId'     => 'BOTID:BOTID',
     'channelId' => 'CHANNELID',
     'timeZone'  => 'Europe/Rome',
+    'useFork'   => true,
 ];
 
 /**

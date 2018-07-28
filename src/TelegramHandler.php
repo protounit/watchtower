@@ -58,7 +58,8 @@ class TelegramHandler extends AbstractProcessingHandler
     {
         $this->guzzle->sendMessage(
             $this->telegram->getChannel(),
-            $this->telegram->formatRecord($record)
+            $this->telegram->formatRecord($record),
+            $this->config['useFork'] ?? true
         );
     }
 }

@@ -29,36 +29,40 @@ class Guzzle
     /**
      * Send message via GuzzleHttp and die to prevent fork bomb
      *
-     * @param string $channel
-     * @param string $message
+     * @param string  $channel
+     * @param string  $message
+     * @param boolean $useFork If false disable fork, because fpm default settings disable pcntl*
      */
-    public function sendMessage(string $channel, string $message)
+    public function sendMessage(string $channel, string $message, bool $useFork = true)
     {
-        $pid = pcntl_fork();
+        $pid    = false;
+        $params = [
+            'form_params' => [
+                'parse_mode' => 'html',
+                'chat_id' => $channel,
+                'text' => $message,
+            ],
+        ];
 
-        if ($pid === -1) {
-            die('Unable to create child process');
+        if ($useFork) {
+            $pid = pcntl_fork();
+
+            if ($pid === -1) {
+                die('Unable to create child process');
+            }
         }
 
         if (!$pid) {
             try {
                 $this->client->post(
                     '',
-                    [
-                        'form_params' => [
-                            'parse_mode' => 'html',
-                            'chat_id' => $channel,
-                            'text' => $message,
-                        ],
-                    ]
+                    $params
                 );
             } catch (\Throwable $exception) {
-                // Won't control child process
                 die('error');
             }
 
             die('Ok');
         }
-
     }
 }

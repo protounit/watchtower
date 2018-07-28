@@ -14,6 +14,7 @@ Telegram handler for Monolog. Send log info to channel with pretty formatting an
 * After text formatting it creates fork of process and send message via guzzle
 * Parent process doing nothing so you don't wait until it stops requesting Telegram API
 * Child process waits for response and die after job is done
+* If you set config option `'useFork' => false` guzzle will wait for response from Telegram API and hold your app till
 
 *Too much messages per time could eat all of your RAM because there is no fork bomb detectors!*
 
@@ -31,6 +32,7 @@ $config = [
 	'botId'     => 'BOTID:BOTID',
 	'channelId' => 'CHANNELID',
 	'timeZone'  => 'Europe/Rome',
+	'useFork    => true
 ];
 ```
 
